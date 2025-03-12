@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  php-api:
+    build:
+      context: .
+      dockerfile: php.Dockerfile
+      args:
+        GITHUB_TOKEN: "${GITHUB_TOKEN}"
+    ports:
+      - "8000:8000"
+    restart: always
+
+  websocket:
+    build:
+      context: .
+      dockerfile: node.Dockerfile
+      args:
+        GITHUB_TOKEN: "${GITHUB_TOKEN}"
+    ports:
+      - "8080:8080"
+      - "4000:4000"
+    restart: always
+    depends_on:
+      - php-api
