@@ -10,6 +10,10 @@ services:
     ports:
       - "8000:8000"
     restart: always
+    volumes:
+      - php-data:/app/data
+    environment:
+      DB_PATH: /app/data/jackpot.db
 
   websocket:
     build:
@@ -23,3 +27,6 @@ services:
     restart: always
     depends_on:
       - php-api
+
+volumes:
+  php-data:
